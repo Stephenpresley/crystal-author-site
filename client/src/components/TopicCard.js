@@ -1,8 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import AxiosContext from '../providers/AxiosProvider'
-import {
-    makeStyles, Button
-} from '@material-ui/core'
+import React from 'react';
+import { makeStyles, Button } from '@material-ui/core'
 
 const useStyles = makeStyles({
     title: {
@@ -15,13 +12,15 @@ const useStyles = makeStyles({
 
 export default function TopicCard(props) {
     const classes = useStyles();
-    const { getArticlesByTopic } = useContext(AxiosContext)
+    const { name, _id } = props.topicInfo
+
     return (
         <Button className={classes.title}
-            onClick={getArticlesByTopic}
-            variant='contained'>
-            {props.name}
+            variant='contained'
+            href={`/articles/${_id}`}>
+            {name}
         </Button>
     );
 };
+
 
