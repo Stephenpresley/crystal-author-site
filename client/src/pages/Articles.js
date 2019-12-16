@@ -33,7 +33,7 @@ export default function Articles(props) {
     return (
         <div>
             <Paper className={classes.root}>
-                <Typography variant='h5' component='h3'>
+                <Typography variant='h6' component='h6'>
                     {mappedArticles}
                 </Typography>
             </Paper>

@@ -35,7 +35,7 @@ const Home = () => {
 
     return (
         <Paper className={classes.root}>
-            <Typography variant='h5' component='h3'>
+            <Typography variant='h6' component='h6'>
                 {articles ?
                     arts.map(art =>
                         <Card className={classes.card}>
