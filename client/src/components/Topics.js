@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
+import { AxiosContext } from '../providers/AxiosProvider';
+import TopicCard from './TopicCard'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
     makeStyles, ExpansionPanel, ExpansionPanelSummary,
     ExpansionPanelDetails, Typography
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { AxiosContext } from '../providers/AxiosProvider';
-import TopicCard from './TopicCard'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -22,13 +22,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function Topics(props) {
     const classes = useStyles();
-    const { topics } = useContext(AxiosContext)
+    const { topics } = useContext(AxiosContext);
     const mappedTopics = topics.map(
         topic =>
             <TopicCard key={topic._id}
-                name={topic.name}
-            />)
-
+                topicInfo={topic}
+            />);
     return (
             <ExpansionPanel className={classes.root}>
                 <ExpansionPanelSummary

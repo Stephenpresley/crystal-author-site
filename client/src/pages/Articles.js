@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
+import React, { useContext, useEffect } from 'react';
+import { AxiosContext } from '../providers/AxiosProvider';
+import ArticleCard from '../components/ArticleCard';
+import Topics from '../components/Topics';
 import {
     makeStyles, Paper, Typography
 } from "@material-ui/core";
-import { AxiosContext} from '../providers/AxiosProvider';
-import ArticleCard from '../components/ArticleCard'
-import Topics from '../components/Topics'
 
 
 const useStyles = makeStyles(theme => ({
@@ -14,16 +14,22 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Articles (props) {
+export default function Articles(props) {
     const classes = useStyles();
-    const {articles} = useContext(AxiosContext)
+    const { articles, getArticles } = useContext(AxiosContext)
     const mappedArticles = articles.map(
-        article => 
+        article =>
             <ArticleCard key={article._id}
                 title={article.title}
                 body={article.body}
                 created={article.created}
+                topicId={article.topic}
             />)
+        useEffect(() => {
+            getArticles()
+        }, [])
+    // const pathCheck = new RegExp('/Articles', 'i')
+    
     return (
         <div>
             <Paper className={classes.root}>
@@ -31,7 +37,7 @@ export default function Articles (props) {
                     {mappedArticles}
                 </Typography>
             </Paper>
-            <Topics/>
+            <Topics />
         </div>
     );
 };
