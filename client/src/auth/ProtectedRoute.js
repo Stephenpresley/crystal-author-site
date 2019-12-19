@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { AxiosContext } from '../providers/AxiosProvider'
 
-const ProtectedRoute = () => {
+const ProtectedRoute = (props) => {
+    const { component: Component, ...rest } = props;
+    const { token } = useContext(AxiosContext)
     return (
-        <div>
-            
-        </div>
+        token ?
+            <Route {...rest} component={Component} />
+            : <Redirect to='/Articles' />
     );
 };
 

@@ -10,10 +10,16 @@ interceptAxios.interceptors.request.use((config) => {
 })
 
 export default function AxiosProvider(props) {
-    const [topics, setTopics] = useState([])
-    const [articles, setArticles] = useState([])
-    const [user, setUser] = useState({})
-    const [token, setToken] = useState('')
+    const [topics, setTopics] = useState([]);
+    const [articles, setArticles] = useState([]);
+    const [oneArticle, setOneArticle] = useState({})
+    const [user, setUser] = useState(
+        JSON.parse(localStorage.getItem('user')) || {});
+    const [token, setToken] = useState(
+        localStorage.getItem('token') || '');
+    const [topicTitle, setTopicTitle] = useState({})
+    const [newArticle, setNewArticle] = useState({})
+
     const getTopics = () => {
         axios.get('/topics').then(res => {
             setTopics(() => [...res.data])
@@ -29,6 +35,15 @@ export default function AxiosProvider(props) {
     const getArticles = () => {
         axios.get('/articles').then(res => {
             setArticles(() => [...res.data].reverse())
+        })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
+    const getOneArticle = (_id) => {
+        axios.get(`/articles/oneArticle/${_id}`).then(res => {
+            setOneArticle(res.data)
         })
             .catch(err => {
                 console.error(err)
@@ -60,29 +75,52 @@ export default function AxiosProvider(props) {
     };
 
     const login = (user, password) => {
-        const cred = {username: user, password}
+        const cred = { username: user, password }
         return interceptAxios
-        .post('/auth/login', cred).then(res => {
-            const { token, user} = res.data
-            localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify(user))
-            setUser(user)
-            setToken(token)
-            return res
-        })
-        .catch(err => {
-            console.error(err)
-        })
+            .post('/auth/login', cred).then(res => {
+                const { token, user } = res.data
+                localStorage.setItem('token', token)
+                localStorage.setItem('user', JSON.stringify(user))
+                setUser(user)
+                setToken(token)
+                return res
+            })
+            .catch(err => {
+                console.error(err)
+            })
     }
-    
+
     const logout = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
-        setUser({user: {}})
-        setToken({token: ''})
+        setUser({ user: {} })
+        setToken({ token: '' })
     }
 
-    
+    const addTopic = (title) => {
+        const topicTitle = { title };
+        return interceptAxios
+            .post('/topics', topicTitle).then(res => {
+                const { title } = res.data
+                setTopicTitle({ title })
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
+    const addArticle = (topicId, title, body) => {
+        const newArticle = { title, body }
+        return interceptAxios
+            .post(`/articles/${topicId}`, newArticle).then(res => {
+                const { title, body } = res.data
+                setNewArticle({ title, body })
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
     return (
         <AxiosContext.Provider
             value={{
@@ -95,7 +133,13 @@ export default function AxiosProvider(props) {
                 login,
                 token,
                 useInput,
-                logout
+                logout,
+                topicTitle,
+                addTopic,
+                newArticle,
+                addArticle,
+                oneArticle,
+                getOneArticle
             }}>
             {props.children}
         </AxiosContext.Provider>

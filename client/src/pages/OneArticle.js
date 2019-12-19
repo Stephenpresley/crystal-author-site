@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { AxiosContext } from '../providers/AxiosProvider';
+import { withRouter } from 'react-router-dom';
+import Topics from '../components/Topics'
 import {
     makeStyles, Card, CardContent, Typography
 } from '@material-ui/core';
@@ -18,19 +21,18 @@ const useStyles = makeStyles({
         fontSize: 14,
         fontWeight: 200,
     },
-    aTag: {
-        textDecoration: 'none',
-    },
 });
-
-export default function ArticleCard(props) {
+const OneArticle = (props) => {
     const classes = useStyles()
-    let { title, created, body, articleId } = props
-    const date = new Date(created).toUTCString();
-    console.log('art', props)
+    const { _id } = props.match.params
+    const { oneArticle, getOneArticle } = useContext(AxiosContext)
+    useEffect(() => {
+        getOneArticle(_id)
+    }, []);
+    const { title, body, created } = oneArticle || props;
+    const date = new Date(created).toUTCString()
     return (
-        <a href={`/articles/oneArticle/${articleId}`}
-            className={classes.aTag}>
+        <div>
             <Card className={classes.card}>
                 <CardContent >
                     <Typography className={classes.title}>
@@ -43,6 +45,9 @@ export default function ArticleCard(props) {
                     </Typography>
                 </CardContent>
             </Card>
-        </a>
+            <Topics />
+        </div>
     );
 };
+
+export default withRouter(OneArticle);

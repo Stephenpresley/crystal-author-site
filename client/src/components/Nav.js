@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -59,13 +59,13 @@ function NewTopicIcon() {
     )
 }
 
-export default function Nav() {
+export default function Nav(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
     return (
         <div>
             {
-                localStorage.getItem('token') === null ?
+                props.token !== '' ?
                     <BottomNavigation
                         value={value}
                         onChange={(event, newValue) => {
@@ -77,10 +77,10 @@ export default function Nav() {
                             icon={<HomeIcon className={classes.icon} />} href='/' />
                         <BottomNavigationAction label='Articles' value='articles'
                             icon={<ArticlesIcon className={classes.icon} />} href='/Articles' />
-                        <BottomNavigationAction label='Bookshelf' value='bookshelf'
-                            icon={<BookshelfIcon className={classes.icon} />} href='/Bookshelf' />
-                        <BottomNavigationAction label='About' value='about'
-                            icon={<AboutIcon className={classes.icon} />} href='/About' />
+                        <BottomNavigationAction label='Topic' value='newTopic'
+                            icon={<NewTopicIcon className={classes.icon} />} href='/newTopic' />
+                        <BottomNavigationAction label='Article/Blogpost' value='newArticle'
+                            icon={<NewTopicIcon className={classes.icon} />} href='/newArticle' />
                     </BottomNavigation>
                     :
                     <BottomNavigation
@@ -90,10 +90,18 @@ export default function Nav() {
                         }}
                         showLabels
                         className={classes.root}>
-                        <BottomNavigationAction label='Topic' value='newTopic'
-                            icon={<NewTopicIcon className={classes.icon} />} href='/newTopic' />
-                        <BottomNavigationAction label='Article/Blogpost' value='newArticle'
-                        icon={<NewTopicIcon className={classes.icon} />} href='/newArticle' />
+                        <BottomNavigationAction label='Home' value='home'
+                            icon={<HomeIcon className={classes.icon} />} 
+                            href='/' />
+                        <BottomNavigationAction label='Articles' value='articles'
+                            icon={<ArticlesIcon className={classes.icon} />} 
+                            href='/Articles' />
+                        <BottomNavigationAction label='Bookshelf' value='bookshelf'
+                            icon={<BookshelfIcon className={classes.icon} />} 
+                            href='/Bookshelf' />
+                        <BottomNavigationAction label='About' value='about'
+                            icon={<AboutIcon className={classes.icon} />} 
+                            href='/About' />
                     </BottomNavigation>
             }
         </div>

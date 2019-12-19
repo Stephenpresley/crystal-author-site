@@ -7,7 +7,8 @@ import {
 const useStyles = makeStyles({
     root: {
         padding: 2,
-        width: '97%'
+        width: '97%',
+        height: '150vh'
     },
     card: {
         margin: 5
