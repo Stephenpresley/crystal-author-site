@@ -1,9 +1,9 @@
-import React, {useContext} from 'react';
-import {makeStyles, TextField, Button} from '@material-ui/core'
+import React, { useContext } from 'react';
+import { Redirect } from 'react-router-dom'
+import { makeStyles, TextField, Button } from '@material-ui/core'
 import { AxiosContext } from '../providers/AxiosProvider';
 
-
-const useStyles = makeStyles(theme =>({
+const useStyles = makeStyles(theme => ({
     root: {
         '& > *': {
             margin: theme.spacing(1),
@@ -12,48 +12,45 @@ const useStyles = makeStyles(theme =>({
             flexDirection: 'column',
         },
     },
-    title: {
+    button: {
         fontSize: 14,
     },
 }));
 
-export default function Login () {
+export default function Login() {
     const classes = useStyles();
-    const {login, useInput, logout} = useContext(AxiosContext)
+    const { login, useInput } = useContext(AxiosContext)
     const { value: username, bind: bindUsername } = useInput('')
     const { value: password, bind: bindPassword } = useInput('')
-    const handleSubmit = e =>{
+    const handleLogin = e => {
         e.preventDefault()
         login(username, password)
     }
 
     return (
-        <form className={classes.root} 
-            noValidate 
-            autoComplete='on'
-            onSubmit={handleSubmit}>
-            <TextField className='outlined-basic' 
-                label='Username' 
-                name='username'
-                variant='outlined'
-                {...bindUsername} />
-            <TextField className='outlined-basic' 
-                label='Password' 
-                name='password'
-                variant='outlined'
-                type="password"
-                {...bindPassword} />
+        <div>
             {localStorage.getItem('token') === null ?
-            <Button className={classes.title}
-                variant='contained'
-                type='submit'>Login
-            </Button>
-            :
-            <Button className={classes.title}
-                variant='contained'
-                onClick={logout}>Logout
-            </Button>}
-        </form>
+                <form className={classes.root}
+                    noValidate
+                    autoComplete='on'>
+                    <TextField className='outlined-basic'
+                        label='Username'
+                        name='username'
+                        variant='outlined'
+                        {...bindUsername} />
+                    <TextField className='outlined-basic'
+                        label='Password'
+                        name='password'
+                        variant='outlined'
+                        type="password"
+                        {...bindPassword} />
+                    <Button className={classes.button}
+                        variant='contained'
+                        type='submit'
+                        onClick={handleLogin}>Login
+                    </Button>
+                </form>
+                : <Redirect to='/newTopic' />}
+        </div>
     );
 };
-

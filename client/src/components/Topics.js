@@ -10,7 +10,7 @@ import {
 const useStyles = makeStyles(theme => ({
     root: {
         position: 'fixed',
-        bottom: 53,
+        bottom: 54,
         left: 0,
         justifyContent: 'flexStart'
     },

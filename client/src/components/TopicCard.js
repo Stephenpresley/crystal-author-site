@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, Button } from '@material-ui/core'
 
 const useStyles = makeStyles({
-    title: {
+    titleText: {
         fontSize: 14,
         display: 'flex',
         flexDirection: 'column',
@@ -12,13 +12,12 @@ const useStyles = makeStyles({
 
 export default function TopicCard(props) {
     const classes = useStyles();
-    const { name, _id } = props.topicInfo
-
+    const { title, _id } = props.topicInfo
     return (
-        <Button className={classes.title}
+        <Button className={classes.titleText}
             variant='contained'
             href={`/articles/${_id}`}>
-            {name}
+            {title}
         </Button>
     );
 };

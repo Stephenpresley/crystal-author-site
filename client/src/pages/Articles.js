@@ -6,11 +6,11 @@ import {
     makeStyles, Paper, Typography
 } from "@material-ui/core";
 
-
 const useStyles = makeStyles(theme => ({
     root: {
         padding: 2,
-        width: '97%'
+        width: '97%',
+        height: '150vh'
     },
 }));
 
@@ -24,11 +24,11 @@ export default function Articles(props) {
                 body={article.body}
                 created={article.created}
                 topicId={article.topic}
+                articleId={article._id}
             />)
         useEffect(() => {
             getArticles()
         }, [])
-    // const pathCheck = new RegExp('/Articles', 'i')
     
     return (
         <div>

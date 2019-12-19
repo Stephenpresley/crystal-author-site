@@ -2,7 +2,7 @@ const express = require('express');
 const articleRouter = express.Router();
 const Article = require('../models/Article');
 
-//all articless
+//all articles
 articleRouter.route('/')
 
     .get((req, res) => {
