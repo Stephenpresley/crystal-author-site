@@ -4,16 +4,20 @@ import { makeStyles, Paper, Card } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     root: {
         padding: 2,
+        margin: 18.5,
         width: '97%',
-        height: '150vh'
+        height: '150vh',
+        backgroundColor: '#d4d4dc'
     },
     card: {
         margin: 5,
-        width: '50%'
+        width: '50%',
+        backgroundImage: 'linear-gradient(#393f4d, #1d1e22)',
     },
     title: {
         fontSize: 20,
         fontWeight: 400,
+        color: '#f0f8ff',
     },
     img:  {
         border: '1px solid #1a1a1a',
@@ -23,12 +27,15 @@ const useStyles = makeStyles(theme => ({
     },
     h2: {
         margin: 8,
+        color: '#f0f8ff',
     },
     p: {
         margin: 8,
+        color: '#f0f8ff',
     },
     aTag: {
         textDecoration: 'none',
+        color: '#f0f8ff',
     },
 }))
 
@@ -42,7 +49,7 @@ const Bookshelf = () => {
                     alt=""/>
                 <a className={classes.aTag}
                     target='_blank' rel="noopener noreferrer" 
-                    href="https://www.amazon.com/dp/B07T8DXY32/ref=rdr_kindle_ext_tmb">
+                    href="https://www.amazon.com/Thumbs-Thoroughfares-Talon-Scott/dp/1733539905/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=&sr=">
                     <h2 className={classes.h2}><b>Thumbs And Thoroughfares</b></h2>
                 </a>
                 <p className={classes.p}>Richie Vegas has decided to go hitchhiking with his two most adventurous friends. 

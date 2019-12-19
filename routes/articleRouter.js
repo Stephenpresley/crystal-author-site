@@ -42,7 +42,7 @@ articleRouter.route('/oneArticle/:_id')
     })
 
 //put and delete one article
-articleRouter.route('/:_id')
+articleRouter.route('/oneArticle/:_id')
 
     .put((req, res) => {
         Article.findOneAndUpdate(

@@ -9,7 +9,9 @@ const useStyles = makeStyles({
         position: 'fixed',
         bottom: 0,
         left: 0,
-        justifyContent: 'flexStart'
+        justifyContent: 'flexStart',
+        backgroundColor: '#feda6a',
+        zIndex: '5000',
     },
     icon: {
         padding: 0,

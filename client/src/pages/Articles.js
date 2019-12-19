@@ -9,8 +9,10 @@ import {
 const useStyles = makeStyles(theme => ({
     root: {
         padding: 2,
+        margin: 18.5,
         width: '97%',
-        height: '150vh'
+        height: '100%',
+        backgroundColor: '#d4d4dc'
     },
 }));
 
@@ -25,6 +27,7 @@ export default function Articles(props) {
                 created={article.created}
                 topicId={article.topic}
                 articleId={article._id}
+                article={article}
             />)
         useEffect(() => {
             getArticles()

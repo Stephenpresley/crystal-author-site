@@ -19,6 +19,7 @@ export default function AxiosProvider(props) {
         localStorage.getItem('token') || '');
     const [topicTitle, setTopicTitle] = useState({})
     const [newArticle, setNewArticle] = useState({})
+    const [redirect, setRedirect] = useState(false)
 
     const getTopics = () => {
         axios.get('/topics').then(res => {
@@ -114,7 +115,19 @@ export default function AxiosProvider(props) {
         return interceptAxios
             .post(`/articles/${topicId}`, newArticle).then(res => {
                 const { title, body } = res.data
-                setNewArticle({ title, body })
+                setNewArticle({ title, body });
+                setRedirect(true);
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
+    const deleteArticle = (articleId) =>{
+        return interceptAxios
+            .delete(`/articles/oneArticle/${articleId}`).then(res =>{
+                getArticles();
+                setRedirect(true);
             })
             .catch(err => {
                 console.error(err)
@@ -139,7 +152,9 @@ export default function AxiosProvider(props) {
                 newArticle,
                 addArticle,
                 oneArticle,
-                getOneArticle
+                getOneArticle,
+                deleteArticle,
+                redirect
             }}>
             {props.children}
         </AxiosContext.Provider>

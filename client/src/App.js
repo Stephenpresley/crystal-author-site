@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { AxiosContext } from './providers/AxiosProvider';
 import { makeStyles, Button } from '@material-ui/core';
+import './App.css'
 
 //Components/Pages
 import Login from './auth/Login';
@@ -26,7 +27,7 @@ export default function App(props) {
   const classes = useStyles();
   const { token, logout } = useContext(AxiosContext);
   return (
-    <div className="App">
+    <div className='App'>
       {
         token ?
           <Button className={classes.button}

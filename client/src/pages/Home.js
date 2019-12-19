@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { AxiosContext } from '../providers/AxiosProvider'
+import { AxiosContext } from '../providers/AxiosProvider';
 import {
     makeStyles, Card, CardContent, Typography, Paper
 } from '@material-ui/core';
@@ -7,18 +7,23 @@ import {
 const useStyles = makeStyles({
     root: {
         padding: 2,
+        margin: 18.5,
         width: '97%',
-        height: '150vh'
+        height: '150%',
+        backgroundColor: '#d4d4dc'
     },
     card: {
-        margin: 5
+        margin: 5,
+        backgroundImage: 'linear-gradient(#393f4d, #1d1e22)',
     },
     title: {
         fontSize: 20,
         fontWeight: 400,
+        color: '#f0f8ff',
     },
     pos: {
         marginBottom: 12,
+        color: '#f0f8ff',
     },
     name: {
         fontSize: 14,
@@ -27,7 +32,7 @@ const useStyles = makeStyles({
 });
 
 const Home = () => {
-    const classes = useStyles()
+    const classes = useStyles();
     const { articles, getArticles } = useContext(AxiosContext)
     useEffect(() => {
         getArticles()
@@ -43,15 +48,15 @@ const Home = () => {
                             <CardContent>
                                 <Typography className={classes.title}>
                                     {art.title}
+                                    <br />
+                                    {new Date(art.created).toUTCString()}
                                 </Typography>
-                                <br />
-                                {new Date(art.created).toUTCString()}
                                 <Typography className={classes.pos}>
                                     {art.body}
                                 </Typography>
                             </CardContent>
                         </Card>)
-                    :   <h2><i> We can't get the list of recent articles,
+                    : <h2><i> We can't get the list of recent articles,
                                 I don't know what happened.
                                 It worked on my machine.
                         </i></h2>}

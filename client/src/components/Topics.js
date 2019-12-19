@@ -12,7 +12,8 @@ const useStyles = makeStyles(theme => ({
         position: 'fixed',
         bottom: 54,
         left: 0,
-        justifyContent: 'flexStart'
+        justifyContent: 'flexStart',
+        backgroundColor:  '#feda6a'
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
