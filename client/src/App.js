@@ -29,7 +29,7 @@ export default function App(props) {
   return (
     <div className='App'>
       {
-        token ?
+        localStorage.getItem('token') !== null ?
           <Button className={classes.button}
             variant='contained'
             onClick={logout}>Logout

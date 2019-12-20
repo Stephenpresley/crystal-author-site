@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function NewArticle() {
+export default function NewArticle(props) {
     const classes = useStyles();
     const inputLabel = useRef(null);
     const [labelWidth, setLabelWidth] = useState(0);
@@ -46,9 +46,10 @@ export default function NewArticle() {
     const topicsMap = topics.map(topic => (
         <MenuItem value={topic._id}>{topic.title}</MenuItem>
     ))
-    const handleAddArticle = e => {
+    const handleAddArticle = async e => {
         e.preventDefault()
-        addArticle(topicId, title, body)
+        await addArticle(topicId, title, body)
+        props.history.push('/Articles')
     };
     return (
         <div className={classes.root}>
@@ -72,10 +73,12 @@ export default function NewArticle() {
                     name='articleTitle'
                     variant='outlined'
                     {...bindArticleTitle} />
-                <TextField className='outlined-basic'
+                <TextField className='outlined-textarea'
                     label='Body'
                     name='articleBody'
                     variant='outlined'
+                    multiline
+                    rows='10'
                     {...bindArticleBody} />
                 <Button className={classes.button}
                     variant='contained'

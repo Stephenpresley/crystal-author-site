@@ -3,3 +3,12 @@ html {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
+.about {
+    text-align: -webkit-center;
+}
+
+.outlined-basic {
+    border-radius: 5px;
+    background-color: #393f4d;
+}

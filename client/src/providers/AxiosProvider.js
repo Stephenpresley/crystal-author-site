@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
-export const AxiosContext = React.createContext()
+import axios from 'axios';
+import {withRouter} from 'react-router-dom';
+export const AxiosContext = React.createContext();
 const interceptAxios = axios.create();
 
 interceptAxios.interceptors.request.use((config) => {
@@ -9,7 +10,7 @@ interceptAxios.interceptors.request.use((config) => {
     return config;
 })
 
-export default function AxiosProvider(props) {
+const AxiosProvider = (props) => {
     const [topics, setTopics] = useState([]);
     const [articles, setArticles] = useState([]);
     const [oneArticle, setOneArticle] = useState({})
@@ -91,11 +92,13 @@ export default function AxiosProvider(props) {
             })
     }
 
-    const logout = () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        setUser({ user: {} })
-        setToken({ token: '' })
+    const logout = async () => {
+        await localStorage.removeItem('user');
+        await localStorage.removeItem('token');
+        await setUser({ user: {} })
+        await setToken({ token: '' })
+        props.history.push('/')
+
     }
 
     const addTopic = (title) => {
@@ -160,3 +163,5 @@ export default function AxiosProvider(props) {
         </AxiosContext.Provider>
     );
 };
+
+export default withRouter(AxiosProvider);
